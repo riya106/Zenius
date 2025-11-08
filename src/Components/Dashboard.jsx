@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Login from "./Login"; // make sure path is correct
 
-const Dashboard = () => {
+const Dashboard = ({ onClickLogin, onOpenInternship, onOpenHackathon }) => {
   const [showLogin, setShowLogin] = useState(false);
 
   if (showLogin) {
@@ -55,10 +55,18 @@ const Dashboard = () => {
             <div
               key={index}
               className={`w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br ${item.color} transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(139,92,246,0.7)] cursor-pointer`}
+             onClick={() => {
+      if (item.name === "Internship") {
+        onOpenInternship(); 
+      }else if (item.name === "Hackathon") {
+                  onOpenHackathon(); 
+                }
+    }}
             >
               {item.name}
             </div>
           ))}
+         
         </div>
       </div>
 
