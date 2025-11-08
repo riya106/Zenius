@@ -22,32 +22,58 @@ const internships = [
     description:
       "Contribute to both front-end and back-end systems while collaborating with a dynamic tech team.",
   },
+  {
+    title: "UI/UX Design Intern",
+    company: "PixelCraft Studio",
+    duration: "Jan 2026 – Mar 2026",
+    description:
+      "Design intuitive user experiences using Figma and create smooth UI flows.",
+  },
+  {
+    title: "Machine Learning Intern",
+    company: "NeuroAI Labs",
+    duration: "Jul 2025 – Sep 2025",
+    description:
+      "Train machine learning models, preprocess datasets, and optimize performance using Python.",
+  },
+  {
+    title: "Cloud Engineering Intern",
+    company: "Infinity Cloud",
+    duration: "Jun 2025 – Aug 2025",
+    description:
+      "Work with AWS cloud computing environment, automate processes, and maintain deployments.",
+  },
 ];
 
-const InternshipPage = () => {
+const InternshipPage = ({ onBack }) => {
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-10"
-    style={{
-    backgroundImage:
-      "url('https://images.unsplash.com/photo-1501430843268-4a77f9c52af5?auto=format&fit=crop&w=1920&q=80')",
-  }}
+    <div
+      className="min-h-screen w-full bg-black text-white flex flex-col"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1501430843268-4a77f9c52af5?auto=format&fit=crop&w=1920&q=80')",
+      }}
     >
-      {/* Header / Hero Section */}
-      <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
-          Internship TimeLine
+      {/* Header */}
+      <div className="flex justify-between items-center p-6 border-b border-gray-800">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+          Internship Opportunities
         </h1>
-        <p className="text-gray-300">
-         “Turning Opportunities into Experience.”
-        </p>
-      </header>
+
+        <button
+          onClick={onBack}
+          className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 px-4 py-2 rounded-xl text-white font-semibold hover:opacity-90 transition"
+        >
+          Go Back to Dashboard
+        </button>
+      </div>
 
       {/* Internship Cards */}
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="flex-grow px-6 py-12 grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {internships.map((intern, index) => (
           <div
             key={index}
-            className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
+            className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl hover:scale-105 transition-transform duration-300 shadow-lg"
           >
             <div className="bg-black rounded-2xl p-6 h-full flex flex-col justify-between">
               <div>
@@ -65,8 +91,8 @@ const InternshipPage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="text-center mt-12 text-gray-500 text-sm">
-        © 2025 Zenius | Begin your jounery of learning
+      <footer className="text-center mt-6 mb-6 text-gray-400 text-sm">
+        © 2025 Zenius | Begin your journey of learning
       </footer>
     </div>
   );

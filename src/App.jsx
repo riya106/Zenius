@@ -1,39 +1,41 @@
 import React, { useState } from "react";
 import Front from "./Components/Front";
 import Dashboard from "./Components/Dashboard";
-import Login from "./Components/Login";
 import InternshipPage from "./Components/IntershipPage";
 import HackathonPage from "./Components/HackathonPage";
+import Dsa from "./Components/Dsa";
+import Summits from "./Components/Summits";
 
-
-const App = () => {
-  const [currentPage, setCurrentPage] = useState("front");
-
-  const handleGetStarted = () => setCurrentPage("dashboard");
-  const handleLogin = () => setCurrentPage("login");
-  const handleBackToDashboard = () => setCurrentPage("dashboard");
-   const handleOpenInternship = () => setCurrentPage("internship");
-   const handleOpenHackathon = () => setCurrentPage("hackathon");
+function App() {
+  const [page, setPage] = useState("front");
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-black text-white">
-      {currentPage === "front" && <Front onGetStarted={handleGetStarted} />}
+    <>
+    {page === "front" && <Front onGetStarted={() => setPage("dashboard")} />}
 
-      {currentPage === "dashboard" && (
-        <Dashboard onLoginClick={handleLogin}
-         onOpenInternship={handleOpenInternship}
-          onOpenHackathon={handleOpenHackathon} />
+
+      {page === "dashboard" && (
+        <Dashboard
+          onOpenInternship={() => setPage("internship")}
+          onOpenHackathon={() => setPage("hackathon")}
+          onOpenDSA={() => setPage("dsa")}
+          onOpenSummits={() => setPage("summits")}
+        />
       )}
 
-      {currentPage === "login" && <Login onBack={handleBackToDashboard} />}
-      {currentPage === "internship" && <InternshipPage />}
-      {currentPage === "hackathon" && (
-        <HackathonPage onBack={handleBackToDashboard} />
+      {page === "internship" && (
+        <InternshipPage onBack={() => setPage("dashboard")} />
       )}
 
+      {page === "hackathon" && (
+        <HackathonPage onBack={() => setPage("dashboard")} />
+      )}
 
-    </div>
+      {page === "dsa" && <Dsa onBack={() => setPage("dashboard")} />}
+
+      {page === "summits" && <Summits onBack={() => setPage("dashboard")} />}
+    </>
   );
-};
+}
 
 export default App;
