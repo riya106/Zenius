@@ -1,10 +1,27 @@
-import React from 'react';
+import React from "react";
 
-function Front({ onGetStarted }) {
+function Front({ onGetStarted, onLoginClick, onSignupClick }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white overflow-hidden relative">
       {/* Glowing background light */}
       <div className="absolute w-[600px] h-[600px] bg-purple-700 opacity-25 blur-3xl rounded-full top-1/3 left-1/4 animate-pulse"></div>
+
+      {/* 🔹 Top Navigation (Login & Sign Up) */}
+      <div className="absolute top-6 right-8 flex gap-4 z-20">
+        <button
+          onClick={onLoginClick}
+          className="px-5 py-2 rounded-full border border-purple-500 text-purple-400 font-medium hover:bg-purple-600 hover:text-white transition"
+        >
+          Login
+        </button>
+
+        <button
+          onClick={onSignupClick}
+          className="px-5 py-2 rounded-full border border-purple-500 text-purple-400 font-medium hover:bg-purple-600 hover:text-white transition"
+        >
+          Sign Up
+        </button>
+      </div>
 
       {/* Zenius title */}
       <h1 className="text-[18vw] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 drop-shadow-[0_0_40px_rgba(147,51,234,0.7)] animate-fadeIn">
@@ -42,4 +59,8 @@ function Front({ onGetStarted }) {
 }
 
 export default Front;
+
+
+
+
 
