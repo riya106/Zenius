@@ -27,12 +27,21 @@ app.get("/", (req, res) => {
 const internshipRoutes = require("./routes/internshipRoutes");
 app.use("/api/internships", internshipRoutes);
 
-// ⭐ Summit Routes — ADD THIS
+// Summit Routes 
 const summitRoutes = require("./routes/summitRoutes");
 app.use("/api/summits", summitRoutes);
+
+// Hackathon Routes 
+const hackathonRoutes = require("./routes/hackathonRoutes");
+app.use("/api/hackathons", hackathonRoutes);
+
+// DSA Routes
+const dsaRoutes = require("./routes/dsaRoutes");
+app.use("/api/dsa", dsaRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
