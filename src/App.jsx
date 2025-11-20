@@ -5,9 +5,13 @@ import Front from "./Components/Front";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import InternshipPage from "./Components/IntershipPage";
+import InternshipDetail from "./Components/InternshipDetail";
 import HackathonPage from "./Components/HackathonPage";
 import Dsa from "./Components/Dsa";
+
+// Summit Components
 import Summits from "./Components/Summits";
+import SummitDetail from "./Components/SummitDetail";
 
 function App() {
   const [page, setPage] = useState("front");
@@ -15,15 +19,18 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔥 Firebase Auth Listener (VERY IMPORTANT)
+  const [selectedInternshipId, setSelectedInternshipId] = useState(null);
+  const [selectedSummitId, setSelectedSummitId] = useState(null); 
+
+  // Firebase Auth Listener
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
 
       if (currentUser) {
-        setPage("dashboard"); // auto redirect when logged in
+        setPage("dashboard");
       } else {
-        setPage("front"); // auto redirect when logged out
+        setPage("front");
       }
 
       setLoading(false);
@@ -42,9 +49,10 @@ function App() {
 
   return (
     <>
+      {/* Front Page */}
       {page === "front" && !user && (
         <Front
-          onGetStarted={() => setPage("login")} // 🔥 fixed: now goes to login
+          onGetStarted={() => setPage("login")}
           onLoginClick={() => {
             setAuthMode("login");
             setPage("login");
@@ -56,6 +64,7 @@ function App() {
         />
       )}
 
+      {/* Login Page */}
       {page === "login" && !user && (
         <Login
           initialMode={authMode}
@@ -63,34 +72,64 @@ function App() {
         />
       )}
 
+      {/* Dashboard */}
       {page === "dashboard" && user && (
         <Dashboard
           onOpenInternship={() => setPage("internship")}
           onOpenHackathon={() => setPage("hackathon")}
           onOpenDSA={() => setPage("dsa")}
           onOpenSummits={() => setPage("summits")}
-          onLogout={() => auth.signOut()} // 🔥 Direct Firebase logout
+          onLogout={() => auth.signOut()}
         />
       )}
 
+      {/* Internship Page */}
       {page === "internship" && user && (
-        <InternshipPage onBack={() => setPage("dashboard")} />
+        <InternshipPage
+          onBack={() => setPage("dashboard")}
+          onOpenDetail={(id) => {
+            setSelectedInternshipId(id);
+            setPage("internshipDetail");
+          }}
+        />
       )}
 
+      {/* Internship Detail Page */}
+      {page === "internshipDetail" && user && (
+        <InternshipDetail
+          internshipId={selectedInternshipId}
+          onBack={() => setPage("internship")}
+        />
+      )}
+
+      {/* Hackathon */}
       {page === "hackathon" && user && (
         <HackathonPage onBack={() => setPage("dashboard")} />
       )}
 
+      {/* DSA */}
       {page === "dsa" && user && <Dsa onBack={() => setPage("dashboard")} />}
 
+      {/* Summits Page */}
       {page === "summits" && user && (
-        <Summits onBack={() => setPage("dashboard")} />
+        <Summits
+          onBack={() => setPage("dashboard")}
+          onOpenSummitDetail={(id) => {      //  FIXED HERE ⭐
+            setSelectedSummitId(id);
+            setPage("summitDetail");
+          }}
+        />
+      )}
+
+      {/* Summit Detail Page */}
+      {page === "summitDetail" && user && (
+        <SummitDetail
+          summitId={selectedSummitId}
+          onBack={() => setPage("summits")}
+        />
       )}
     </>
   );
 }
 
 export default App;
-
-
-

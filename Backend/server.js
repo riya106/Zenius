@@ -27,6 +27,10 @@ app.get("/", (req, res) => {
 const internshipRoutes = require("./routes/internshipRoutes");
 app.use("/api/internships", internshipRoutes);
 
+// ⭐ Summit Routes — ADD THIS
+const summitRoutes = require("./routes/summitRoutes");
+app.use("/api/summits", summitRoutes);
+
 // Start Server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
