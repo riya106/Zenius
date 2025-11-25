@@ -5,11 +5,11 @@ require("dotenv").config();
 
 const app = express();
 
-// Middlewares
+
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
+
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,

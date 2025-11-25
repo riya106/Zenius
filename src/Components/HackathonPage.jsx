@@ -12,7 +12,7 @@ const HackathonPage = ({ onBack }) => {
 
   return (
     <div className="min-h-screen w-full bg-black text-white flex flex-col">
-      {/* Header */}
+      
       <div className="flex justify-between items-center p-6 border-b border-gray-800">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
           Hackathon Hub
