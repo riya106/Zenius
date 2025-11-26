@@ -1,16 +1,44 @@
-# React + Vite
+🌟 Zenius – Your Smart Student Resource Hub
+Zenius is an all-in-one platform designed to help students access internships, hackathons, career guidance, daily planning tools, success motivation, and an AI assistant — all from a single dashboard.
+Built with a modern UI and smooth navigation, Zenius makes student productivity simple and beautiful.
+✨ Features
+🔹 Internships & Hackathons
+Browse the latest tech internships, coding challenges, and hackathons with beautifully designed pages and clean UI.
+🔹 Career Assistant
+AI-powered guidance for resumes, job tips, career planning, and skill mapping.
+🔹 Success Page
+Motivational content, achievements, and success stories to keep students inspired.
+🔹 Daily Planner
+A simple and effective task planner to help students stay consistent and productive.
+🔹 AI Assistant
+Get instant help, learning support, and answers to your technical questions.
+🔹 Summits
+  Get information about summits which are helding in different area and different       countries
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+🛠️ Tech Stack
+Frontend
+React.js
+Tailwind CSS
+Framer Motion
+Modern UI components
+Backend
+Node.js
+Express
+MongoDB 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+📸 Screenshots
+
+
+![Dashboard](screenshots/dashboard.png)
+
+💡 Future Enhancements
+AI-generated study planner
+Student community / forums
+Profile system & login
+Real-time internship tracking
+Resource recommendation engine
