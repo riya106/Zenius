@@ -34,7 +34,7 @@ MongoDB
 📸 Screenshots
 
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](zenius.png)
 
 💡 Future Enhancements
 AI-generated study planner
