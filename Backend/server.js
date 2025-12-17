@@ -5,11 +5,24 @@ require("dotenv").config();
 
 const app = express();
 
+/* =======================
+   MIDDLEWARE
+======================= */
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",              // local frontend
+      "https://zenius.vercel.app"            // deployed frontend (change if needed)
+    ],
+    credentials: true,
+  })
+);
 
-app.use(cors());
 app.use(express.json());
 
-
+/* =======================
+   DATABASE CONNECTION
+======================= */
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -18,30 +31,32 @@ mongoose
   .then(() => console.log("✅ MongoDB Connected"))
   .catch((err) => console.log("❌ Mongo Error:", err));
 
-// Test Route
+/* =======================
+   TEST ROUTE
+======================= */
 app.get("/", (req, res) => {
   res.send("Zenius Backend Running...");
 });
 
-// Internship Routes
+/* =======================
+   ROUTES
+======================= */
 const internshipRoutes = require("./routes/internshipRoutes");
 app.use("/api/internships", internshipRoutes);
 
-// Summit Routes 
 const summitRoutes = require("./routes/summitRoutes");
 app.use("/api/summits", summitRoutes);
 
-// Hackathon Routes 
 const hackathonRoutes = require("./routes/hackathonRoutes");
 app.use("/api/hackathons", hackathonRoutes);
 
-// DSA Routes
 const dsaRoutes = require("./routes/dsaRoutes");
 app.use("/api/dsa", dsaRoutes);
 
-// Start Server
+/* =======================
+   SERVER
+======================= */
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
