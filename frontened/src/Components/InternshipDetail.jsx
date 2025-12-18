@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from "../config/api"; // 👈 add this
 
 const InternshipDetail = ({ internshipId, onBack }) => {
-
   const [internship, setInternship] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -9,13 +9,10 @@ const InternshipDetail = ({ internshipId, onBack }) => {
   const fixedId =
     internshipId?._id || internshipId?.id || internshipId;
 
-  // ------------------------
-  //  useEffect MUST be here
-  // ------------------------
   useEffect(() => {
     if (!fixedId) return;
 
-    fetch(`http://localhost:5001/api/internships/${fixedId}`)
+    fetch(`${API_BASE_URL}/api/internships/${fixedId}`)
       .then((res) => res.json())
       .then((data) => {
         setInternship(data);
@@ -27,9 +24,6 @@ const InternshipDetail = ({ internshipId, onBack }) => {
       });
   }, [fixedId]);
 
-  // ------------------------
-  //  Now we check invalid ID
-  // ------------------------
   if (!fixedId) {
     return (
       <div className="text-white p-10">
@@ -79,10 +73,18 @@ const InternshipDetail = ({ internshipId, onBack }) => {
         {internship.title}
       </h1>
 
-      <p className="text-lg mb-2"><strong>Company:</strong> {internship.company}</p>
-      <p className="text-lg mb-2"><strong>Category:</strong> {internship.category}</p>
-      <p className="text-lg mb-2"><strong>Duration:</strong> {internship.duration}</p>
-      <p className="text-lg mb-2"><strong>Location:</strong> {internship.location}</p>
+      <p className="text-lg mb-2">
+        <strong>Company:</strong> {internship.company}
+      </p>
+      <p className="text-lg mb-2">
+        <strong>Category:</strong> {internship.category}
+      </p>
+      <p className="text-lg mb-2">
+        <strong>Duration:</strong> {internship.duration}
+      </p>
+      <p className="text-lg mb-2">
+        <strong>Location:</strong> {internship.location}
+      </p>
     </div>
   );
 };

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from "../config/api"; // 👈 ADD THIS
 
 const SummitDetail = ({ summitId, onBack }) => {
   const [summit, setSummit] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/summits/${summitId}`)
+    if (!summitId) return;
+
+    fetch(`${API_BASE_URL}/api/summits/${summitId}`)
       .then((res) => res.json())
       .then((data) => setSummit(data))
       .catch((err) => console.log("Error fetching summit:", err));
@@ -14,7 +17,6 @@ const SummitDetail = ({ summitId, onBack }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-700 text-white p-10">
-
       {/* Back button */}
       <button
         onClick={onBack}

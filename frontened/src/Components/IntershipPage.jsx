@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from "../config/api"; // 👈 ADD THIS
 
 const InternshipPage = ({ onBack, onOpenDetail }) => {
   const [internships, setInternships] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/internships")
+    fetch(`${API_BASE_URL}/api/internships`)
       .then((res) => res.json())
       .then((data) => setInternships(data))
       .catch((err) => console.error("Error fetching internships:", err));
@@ -35,7 +36,7 @@ const InternshipPage = ({ onBack, onOpenDetail }) => {
       {/* Internship Cards */}
       <div className="flex-grow px-6 py-12 grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {internships.map((intern) => {
-          const id = intern._id || intern.id; // 🔥 FIXED ID
+          const id = intern._id || intern.id;
           return (
             <div
               key={id}
@@ -52,7 +53,7 @@ const InternshipPage = ({ onBack, onOpenDetail }) => {
                 </div>
 
                 <button
-                  onClick={() => onOpenDetail(id)} // 🔥 FIXED
+                  onClick={() => onOpenDetail(id)}
                   className="mt-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-black font-semibold px-4 py-2 rounded-xl hover:opacity-90 transition"
                 >
                   View Details
