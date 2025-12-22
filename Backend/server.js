@@ -23,18 +23,16 @@ app.use(express.json());
 /* =======================
    DATABASE CONNECTION
 ======================= */
-if (mongoose.connection.readyState === 0) {
-  mongoose
-    .connect(process.env.MONGO_URL)
-    .then(() => console.log("✅ MongoDB Connected"))
-    .catch((err) => console.log("❌ Mongo Error:", err));
-}
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 /* =======================
    TEST ROUTE
 ======================= */
 app.get("/", (req, res) => {
-  res.send("Zenius Backend Running...");
+  res.send("🚀 Zenius Backend Running...");
 });
 
 /* =======================
@@ -46,6 +44,11 @@ app.use("/api/hackathons", require("./routes/hackathonRoutes"));
 app.use("/api/dsa", require("./routes/dsaRoutes"));
 
 /* =======================
-   EXPORT APP (VERCEL)
+   START SERVER (RENDER + LOCAL)
 ======================= */
-module.exports = app;
+const PORT = process.env.PORT || 5001;
+
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
+
