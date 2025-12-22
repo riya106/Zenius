@@ -1,138 +1,95 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import API_BASE_URL from "../config/api"; // 👈 ADD THIS
+import React, { useState } from "react";
+import Login from "./Login"; // make sure path is correct
 
-const Dsa = ({ onBack }) => {
-  const [syllabus, setSyllabus] = useState([]);
-  const [roadmap, setRoadmap] = useState([]);
-  const [practiceSheets, setPracticeSheets] = useState([]);
-  const [leetcodeQuestions, setLeetcodeQuestions] = useState([]);
+const Dashboard = ({ onLoginClick, onOpenInternship, onOpenHackathon, onOpenDSA,onOpenSummits }) => {
+  const [showLogin, setShowLogin] = useState(false);
 
-  useEffect(() => {
-    // Fetch Syllabus
-    axios
-      .get(`${API_BASE_URL}/api/dsa/syllabus`)
-      .then(res => setSyllabus(res.data))
-      .catch(err => console.log(err));
-
-    // Fetch Roadmap
-    axios
-      .get(`${API_BASE_URL}/api/dsa/roadmap`)
-      .then(res => setRoadmap(res.data))
-      .catch(err => console.log(err));
-
-    // Fetch Practice Sheets
-    axios
-      .get(`${API_BASE_URL}/api/dsa/practiceSheets`)
-      .then(res => setPracticeSheets(res.data))
-      .catch(err => console.log(err));
-
-    // Fetch LeetCode Questions
-    axios
-      .get(`${API_BASE_URL}/api/dsa/leetcodeQuestions`)
-      .then(res => setLeetcodeQuestions(res.data))
-      .catch(err => console.log(err));
-  }, []);
+  if (showLogin) {
+    return <Login onBack={onLoginClick} />; // to return to dashboard
+  }
 
   return (
-    <div className="min-h-screen w-full bg-black text-white flex flex-col items-center pt-16 px-6">
+    <div
+      className="min-h-screen w-full text-white flex flex-col items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1920&q=80')",
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+
       {/* Header */}
-      <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-10">
-        DSA Roadmap
-      </h1>
+      <div className="w-full flex justify-between items-center px-10 py-6 absolute top-0 z-10">
+        
+        {/* Center Title */}
+        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600 drop-shadow-[0_0_25px_rgba(139,92,246,0.8)]">
+          ZENIUS
+        </h1>
 
-      {/* Go to Dashboard Button */}
-      <button
-        onClick={onBack}
-        className="mb-8 px-6 py-3 text-lg rounded-lg bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 shadow-xl hover:scale-105 transition-transform"
-      >
-        Go to Dashboard
-      </button>
+        {/* Login / Sign Up */}
+        <div className="flex space-x-4 ml-auto">
+          <button
+            onClick={() => setShowLogin(true)}
+            className="px-5 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium hover:opacity-90 transition"
+          >
+            Login
+          </button>
 
-      {/* Description */}
-      <div className="max-w-4xl text-center leading-relaxed text-gray-300 text-lg mb-10">
-        Data Structures and Algorithms (DSA) are the building blocks of coding interviews. Master them step-by-step with consistency.
+          <button
+            onClick={() => setShowLogin(true)}
+            className="px-5 py-2 rounded-full border border-purple-500 text-purple-400 font-medium hover:bg-purple-600 hover:text-white transition"
+          >
+            Sign Up
+          </button>
+        </div>
       </div>
 
-      {/* Syllabus */}
-      <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-6">
-        DSA Syllabus
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 w-full max-w-6xl">
-        {syllabus.map((item, idx) => (
+      {/* Cards */}
+      <div className="relative z-10 flex flex-col items-center justify-center mt-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 text-center">
+
+          {/* Internship */}
           <div
-            key={idx}
-            className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
+            onClick={onOpenInternship}
+            className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(139,92,246,0.7)] cursor-pointer"
           >
-            <div className="bg-black p-6 rounded-2xl">
-              <h3 className="text-xl font-bold">{item.topic}</h3>
-              <p className="text-gray-300">{item.subtopics}</p>
-            </div>
+            Internship
           </div>
-        ))}
-      </div>
 
-      {/* Roadmap */}
-      <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-6">
-        DSA Roadmap
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 w-full max-w-6xl">
-        {roadmap.map((item, idx) => (
+          {/* Hackathon */}
           <div
-            key={idx}
-            className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
+            onClick={onOpenHackathon}
+            className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(236,72,153,0.7)] cursor-pointer"
           >
-            <div className="bg-black p-6 rounded-2xl">
-              <h3 className="text-xl font-semibold mb-2 text-indigo-400">
-                {item.duration}
-              </h3>
-              <p>{item.focus}</p>
-            </div>
+            Hackathon
           </div>
-        ))}
+
+          {/* DSA */}
+          <div
+            onClick={onOpenDSA}
+            className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-pink-500 to-indigo-500 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(236,72,153,0.7)] cursor-pointer"
+          >
+            DSA
+          </div>
+
+          {/* Summits — currently doesn't have functionality */}
+          <div
+  onClick={onOpenSummits}
+  className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] cursor-pointer"
+>
+  Summits
+</div>
+
+        </div>
       </div>
 
-      {/* Practice Sheets */}
-      <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-6">
-        Top DSA Practice Sheets
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 w-full max-w-6xl">
-        {practiceSheets.map((sheet, idx) => (
-          <a
-            key={idx}
-            href={sheet.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-          >
-            <div className="bg-black p-6 rounded-2xl text-indigo-400 font-semibold">
-              {sheet.name}
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* LeetCode */}
-      <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text mb-6">
-        Important LeetCode Questions
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 w-full max-w-6xl">
-        {leetcodeQuestions.map((q, idx) => (
-          <a
-            key={idx}
-            href={q.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-          >
-            <div className="bg-black p-6 rounded-2xl text-indigo-400 font-semibold">
-              {q.name}
-            </div>
-          </a>
-        ))}
-      </div>
+      {/* Tagline */}
+      <p className="absolute bottom-8 text-gray-300 text-sm z-10">
+        Begin your journey of learning 
+      </p>
     </div>
   );
 };
 
-export default Dsa;
+export default Dashboard;
