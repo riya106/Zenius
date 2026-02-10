@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import API_BASE_URL from "../config/api"; // 👈 ADD THIS
+import API_BASE_URL from "../config/api";
 
 const HackathonPage = ({ onBack }) => {
   const [hackathons, setHackathons] = useState([]);
@@ -13,46 +13,51 @@ const HackathonPage = ({ onBack }) => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-black text-white flex flex-col">
-      <div className="flex justify-between items-center p-6 border-b border-gray-800">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
-          Hackathon Hub
+    <div className="min-h-screen bg-[#ECFEFF] px-8 py-10">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-4xl font-bold text-gray-800">
+          Hackathon Opportunities
         </h1>
 
         <button
           onClick={onBack}
-          className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 px-4 py-2 rounded-xl text-white font-semibold hover:opacity-90"
+          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full shadow-md"
         >
-          Go Back to Dashboard
+          Go Back
         </button>
       </div>
 
-      {/* Main */}
-      <div className="flex-grow flex flex-col items-center px-6 py-12">
-        <div className="w-full max-w-6xl bg-gray-900 p-8 rounded-2xl shadow-2xl">
-          <h2 className="text-3xl font-semibold mb-10 text-center">
-            Upcoming & Trending Hackathons
-          </h2>
+      {/* Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {hackathons.map((hack, index) => (
+          <div
+            key={index}
+            className="bg-white rounded-3xl border border-teal-200 shadow-lg p-8 flex flex-col justify-between"
+          >
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                {hack.name}
+              </h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {hackathons.map((hack, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-              >
-                <div className="bg-black p-6 rounded-2xl">
-                  <h3 className="text-xl font-bold">{hack.name}</h3>
-                  <p className="text-gray-400">{hack.date}</p>
-                  <p className="text-gray-300">{hack.desc}</p>
-                </div>
-              </div>
-            ))}
+              <p className="text-teal-600 font-semibold mb-2">
+                {hack.organizer || "Hackathon Organizer"}
+              </p>
+
+              <p className="text-gray-600 mb-1">
+                <strong>Duration:</strong> {hack.date}
+              </p>
+
+              <p className="text-gray-600">
+                <strong>Mode:</strong> {hack.mode || "Online"}
+              </p>
+            </div>
+
+            <button className="mt-6 bg-gradient-to-r from-teal-500 to-blue-500 text-white py-3 rounded-full font-semibold shadow-md hover:opacity-90">
+              View Details →
+            </button>
           </div>
-
-          <p className="mt-12 text-center text-gray-400 text-sm">
-            💡 “Think. Code. Create. Compete.”
-          </p>
-        </div>
+        ))}
       </div>
     </div>
   );
