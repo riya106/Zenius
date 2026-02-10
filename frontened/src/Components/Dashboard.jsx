@@ -1,95 +1,370 @@
-import React, { useState } from "react";
-import Login from "./Login"; // make sure path is correct
+import React from "react";
 
-const Dashboard = ({ onLoginClick, onOpenInternship, onOpenHackathon, onOpenDSA,onOpenSummits }) => {
-  const [showLogin, setShowLogin] = useState(false);
-
-  if (showLogin) {
-    return <Login onBack={onLoginClick} />; // to return to dashboard
-  }
-
+export default function Dashboard({
+  onOpenInternship,
+  onOpenHackathon,
+  onOpenDSA,
+  onOpenSummits,
+  onLogout,
+}) {
   return (
-    <div
-      className="min-h-screen w-full text-white flex flex-col items-center justify-center relative overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1920&q=80')",
-      }}
-    >
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div className="min-h-screen bg-gradient-to-b from-[#f0fdfa] to-[#e0f2fe] text-gray-800 flex flex-col">
 
-      {/* Header */}
-      <div className="w-full flex justify-between items-center px-10 py-6 absolute top-0 z-10">
-        
-        {/* Center Title */}
-        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-600 drop-shadow-[0_0_25px_rgba(139,92,246,0.8)]">
+      {/* Top Title */}
+      <div className="w-full flex justify-center items-center py-10">
+        <h1 className="text-8xl font-extrabold text-teal-600 tracking-widest drop-shadow-lg">
           ZENIUS
         </h1>
-
-        {/* Login / Sign Up */}
-        <div className="flex space-x-4 ml-auto">
-          <button
-            onClick={() => setShowLogin(true)}
-            className="px-5 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium hover:opacity-90 transition"
-          >
-            Login
-          </button>
-
-          <button
-            onClick={() => setShowLogin(true)}
-            className="px-5 py-2 rounded-full border border-purple-500 text-purple-400 font-medium hover:bg-purple-600 hover:text-white transition"
-          >
-            Sign Up
-          </button>
-        </div>
       </div>
 
-      {/* Cards */}
-      <div className="relative z-10 flex flex-col items-center justify-center mt-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 text-center">
+      {/* Menu Headings */}
+      <div className="flex justify-center gap-12 text-2xl font-bold text-gray-700 flex-wrap">
+        <button
+          onClick={onOpenInternship}
+          className="hover:text-teal-600 transition"
+        >
+          Internship
+        </button>
 
-          {/* Internship */}
-          <div
-            onClick={onOpenInternship}
-            className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(139,92,246,0.7)] cursor-pointer"
-          >
-            Internship
-          </div>
+        <button
+          onClick={onOpenHackathon}
+          className="hover:text-teal-600 transition"
+        >
+          Hackathons
+        </button>
 
-          {/* Hackathon */}
-          <div
-            onClick={onOpenHackathon}
-            className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(236,72,153,0.7)] cursor-pointer"
-          >
-            Hackathon
-          </div>
+        <button
+          onClick={onOpenDSA}
+          className="hover:text-teal-600 transition"
+        >
+          DSA
+        </button>
 
-          {/* DSA */}
-          <div
-            onClick={onOpenDSA}
-            className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-pink-500 to-indigo-500 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(236,72,153,0.7)] cursor-pointer"
-          >
-            DSA
-          </div>
+        <button
+          onClick={onOpenSummits}
+          className="hover:text-teal-600 transition"
+        >
+          Summits
+        </button>
+      </div>
 
-          {/* Summits — currently doesn't have functionality */}
-          <div
-  onClick={onOpenSummits}
-  className="w-64 h-64 flex items-center justify-center text-2xl font-semibold rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 transition-transform duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(59,130,246,0.7)] cursor-pointer"
->
-  Summits
+      {/* Line Section */}
+      <div className="flex justify-center mt-5">
+        <div className="w-[700px] h-[3px] bg-gradient-to-r from-teal-400 to-sky-400 rounded-full"></div>
+      </div>
+
+      {/* Cards Section - FULL WIDTH */}
+      <div className="mt-12 px-6 md:px-20 flex flex-col gap-10">
+{/* Live Hackathons */}
+<div className="w-full bg-white/80 border border-sky-200 rounded-3xl p-12 shadow-md hover:shadow-xl hover:-translate-y-2 transition">
+  
+  <h2 className="text-4xl font-extrabold text-gray-600 mb-6">
+     Hackathons 
+  </h2>
+
+  <div className="space-y-5 text-xl">
+
+    {/* Hackathon 1 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          NASA Space Apps Challenge
+        </p>
+        <p className="text-gray-500 text-lg">
+          Date: October 2026 (Official)
+        </p>
+      </div>
+
+      <a
+        href="https://www.spaceappschallenge.org/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-sky-500 text-white rounded-xl font-semibold hover:bg-sky-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+    {/* Hackathon 2 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          UIDAI Data Hackathon 2026
+        </p>
+        <p className="text-gray-500 text-lg">
+          Date: January 2026
+        </p>
+      </div>
+
+      <a
+        href="https://event.data.gov.in/challenge/uidai-data-hackathon-2026/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-sky-500 text-white rounded-xl font-semibold hover:bg-sky-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+    {/* Hackathon 3 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          Odoo x GCET Hackathon
+        </p>
+        <p className="text-gray-500 text-lg">
+          Date: 2026 (Check Website)
+        </p>
+      </div>
+
+      <a
+        href="https://hackathon.odoo.com/event/odoo-x-gcet-hackathon-26-2/register"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-sky-500 text-white rounded-xl font-semibold hover:bg-sky-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+    {/* Hackathon 4 */}
+    <div className="flex justify-between items-center">
+      <div>
+        <p className="font-bold text-gray-800">
+          Technothon 2026
+        </p>
+        <p className="text-gray-500 text-lg">
+          Date: Feb 28 – Mar 1, 2026
+        </p>
+      </div>
+
+      <a
+        href="https://www.technothon.in/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-sky-500 text-white rounded-xl font-semibold hover:bg-sky-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+  </div>
+</div>
+{/* Top Internships */}
+<div className="w-full bg-white/80 border border-teal-200 rounded-3xl p-12 shadow-md hover:shadow-xl hover:-translate-y-2 transition">
+
+  <h2 className="text-4xl font-extrabold text-gray-600 mb-6">
+    Top Internships 
+  </h2>
+
+  <div className="space-y-5 text-xl">
+
+    {/* Internship 1 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          Internshala (Software Development Internships)
+        </p>
+        <p className="text-gray-500 text-lg">
+          Updated Daily | India
+        </p>
+      </div>
+
+      <a
+        href="https://internshala.com/internships/computer-science-internship"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition"
+      >
+        Apply
+      </a>
+    </div>
+
+    {/* Internship 2 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          LinkedIn Internships
+        </p>
+        <p className="text-gray-500 text-lg">
+          Global | Remote + Onsite
+        </p>
+      </div>
+
+      <a
+        href="https://www.linkedin.com/jobs/internships/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition"
+      >
+        Apply
+      </a>
+    </div>
+
+    {/* Internship 3 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          Google Careers Internships
+        </p>
+        <p className="text-gray-500 text-lg">
+          Software Engineering | Global
+        </p>
+      </div>
+
+      <a
+        href="https://careers.google.com/jobs/results/?employment_type=INTERN"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition"
+      >
+        Apply
+      </a>
+    </div>
+
+    {/* Internship 4 */}
+    <div className="flex justify-between items-center">
+      <div>
+        <p className="font-bold text-gray-800">
+          Microsoft Careers Internships
+        </p>
+        <p className="text-gray-500 text-lg">
+          Intern Opportunities | Global
+        </p>
+      </div>
+
+      <a
+        href="https://careers.microsoft.com/v2/global/en/students"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition"
+      >
+        Apply
+      </a>
+    </div>
+
+  </div>
 </div>
 
-        </div>
+
+        
+
+        {/* Upcoming Summits */}
+<div className="w-full bg-white/80 border border-indigo-200 rounded-3xl p-12 shadow-md hover:shadow-xl hover:-translate-y-2 transition">
+
+  <h2 className="text-4xl font-extrabold text-gray-600 mb-6">
+    Upcoming Summits 
+  </h2>
+
+  <div className="space-y-5 text-xl">
+
+    {/* Summit 1 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          Web Summit
+        </p>
+        <p className="text-gray-500 text-lg">
+          Tech Conference | Global
+        </p>
       </div>
 
-      {/* Tagline */}
-      <p className="absolute bottom-8 text-gray-300 text-sm z-10">
-        Begin your journey of learning 
-      </p>
+      <a
+        href="https://websummit.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-indigo-500 text-white rounded-xl font-semibold hover:bg-indigo-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+    {/* Summit 2 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          Google I/O
+        </p>
+        <p className="text-gray-500 text-lg">
+          Developer Conference | Online
+        </p>
+      </div>
+
+      <a
+        href="https://io.google/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-indigo-500 text-white rounded-xl font-semibold hover:bg-indigo-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+    {/* Summit 3 */}
+    <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+      <div>
+        <p className="font-bold text-gray-800">
+          Microsoft Build
+        </p>
+        <p className="text-gray-500 text-lg">
+          Developer Summit | Global
+        </p>
+      </div>
+
+      <a
+        href="https://build.microsoft.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-indigo-500 text-white rounded-xl font-semibold hover:bg-indigo-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+    {/* Summit 4 */}
+    <div className="flex justify-between items-center">
+      <div>
+        <p className="font-bold text-gray-800">
+          AWS re:Invent
+        </p>
+        <p className="text-gray-500 text-lg">
+          Cloud + DevOps Summit | USA
+        </p>
+      </div>
+
+      <a
+        href="https://reinvent.awsevents.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-6 py-2 bg-indigo-500 text-white rounded-xl font-semibold hover:bg-indigo-600 transition"
+      >
+        Register
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+      </div>
+
+      {/* Bottom Text */}
+      <div className="flex justify-center mt-12">
+        <p className="text-gray-600 text-lg font-medium">
+           explore 🌿✨
+        </p>
+      </div>
+
+      {/* Logout */}
+      <div className="flex justify-center mt-10 pb-10">
+        <button
+          onClick={onLogout}
+          className="px-10 py-3 bg-red-500 text-white rounded-2xl font-bold hover:bg-red-600 transition shadow-lg"
+        >
+          Logout
+        </button>
+      </div>
+
     </div>
   );
-};
-
-export default Dashboard;
+}

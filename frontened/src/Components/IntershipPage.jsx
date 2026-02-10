@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import API_BASE_URL from "../config/api"; // 👈 ADD THIS
+import API_BASE_URL from "../config/api";
 
 const InternshipPage = ({ onBack, onOpenDetail }) => {
   const [internships, setInternships] = useState([]);
@@ -12,51 +12,56 @@ const InternshipPage = ({ onBack, onOpenDetail }) => {
   }, []);
 
   return (
-    <div
-      className="min-h-screen w-full bg-black text-white flex flex-col"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1501430843268-4a77f9c52af5?auto=format&fit=crop&w=1920&q=80')",
-      }}
-    >
+    <div className="min-h-screen w-full bg-gradient-to-b from-[#f0fdfa] to-[#e0f2fe] text-gray-800 flex flex-col">
+      
       {/* Header */}
-      <div className="flex justify-between items-center p-6 border-b border-gray-800">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
-          Internship Opportunities
+      <div className="flex justify-between items-center p-6 border-b border-teal-200 bg-white/70 backdrop-blur-md shadow-sm">
+        <h1 className="text-4xl font-extrabold text-gray-600 tracking-wide">
+          Internship Opportunities 
         </h1>
 
         <button
           onClick={onBack}
-          className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 px-4 py-2 rounded-xl text-white font-semibold hover:opacity-90 transition"
+          className="bg-sky-500 px-6 py-3 rounded-2xl text-white font-semibold hover:bg-sky-600 transition shadow-md"
         >
-          Go Back to Dashboard
+          Go Back
         </button>
       </div>
 
       {/* Internship Cards */}
-      <div className="flex-grow px-6 py-12 grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="flex-grow px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
         {internships.map((intern) => {
           const id = intern._id || intern.id;
+
           return (
             <div
               key={id}
-              className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 p-[2px] rounded-2xl hover:scale-105 transition-transform duration-300 shadow-lg"
+              className="bg-white/80 border border-teal-200 rounded-3xl p-8 shadow-md hover:shadow-xl hover:-translate-y-2 transition cursor-pointer"
             >
-              <div className="bg-black rounded-2xl p-6 h-full flex flex-col justify-between">
+              <div className="flex flex-col justify-between h-full">
                 <div>
-                  <h2 className="text-2xl font-semibold mb-2">{intern.title}</h2>
-                  <p className="text-lg text-gray-400 mb-1">{intern.company}</p>
-                  <p className="text-sm text-gray-500 mb-4">
+                  <h2 className="text-2xl font-extrabold text-gray-800 mb-2">
+                    {intern.title}
+                  </h2>
+
+                  <p className="text-lg font-semibold text-teal-600 mb-1">
+                    {intern.company}
+                  </p>
+
+                  <p className="text-md text-gray-600 mb-2">
                     Duration: {intern.duration}
                   </p>
-                  <p className="text-gray-300">Category: {intern.category}</p>
+
+                  <p className="text-md text-gray-600">
+                     Category: {intern.category}
+                  </p>
                 </div>
 
                 <button
                   onClick={() => onOpenDetail(id)}
-                  className="mt-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-black font-semibold px-4 py-2 rounded-xl hover:opacity-90 transition"
+                  className="mt-8 bg-gradient-to-r from-teal-500 to-sky-500 text-white font-bold px-6 py-3 rounded-2xl hover:opacity-90 transition shadow-md"
                 >
-                  View Details
+                  View Details →
                 </button>
               </div>
             </div>
@@ -64,8 +69,9 @@ const InternshipPage = ({ onBack, onOpenDetail }) => {
         })}
       </div>
 
-      <footer className="text-center mt-6 mb-6 text-gray-400 text-sm">
-        © 2025 Zenius | Begin your journey of learning
+      {/* Footer */}
+      <footer className="text-center mt-6 mb-6 text-gray-500 text-sm font-medium">
+        © 2026 Zenius | Begin your journey of learning 
       </footer>
     </div>
   );

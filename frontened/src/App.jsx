@@ -12,7 +12,7 @@ import Summits from "./Components/Summits";
 import SummitDetail from "./Components/SummitDetail";
 
 function App() {
-  const [page, setPage] = useState(null); // 🔥 IMPORTANT CHANGE
+  const [page, setPage] = useState(null);
   const [authMode, setAuthMode] = useState("login");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -20,13 +20,13 @@ function App() {
   const [selectedInternshipId, setSelectedInternshipId] = useState(null);
   const [selectedSummitId, setSelectedSummitId] = useState(null);
 
-  // 🔐 Firebase Auth Listener (SINGLE SOURCE OF TRUTH)
+  // 🔐 Firebase Auth Listener
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
 
       if (currentUser) {
-        setPage("dashboard"); // ✅ FORCE dashboard
+        setPage("dashboard");
       } else {
         setPage("front");
       }
@@ -37,17 +37,18 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  // ⛔ Block rendering until auth decides page
+  // ⛔ Loading Screen
   if (loading || page === null) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-white text-xl">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#f0fdfa] to-[#e0f2fe] text-gray-700 text-xl font-semibold">
         Loading...
       </div>
     );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-b from-[#f0fdfa] to-[#e0f2fe] text-gray-800">
+      
       {/* FRONT */}
       {page === "front" && !user && (
         <Front
@@ -96,6 +97,7 @@ function App() {
         />
       )}
 
+      {/* INTERNSHIP DETAIL */}
       {page === "internshipDetail" && user && (
         <InternshipDetail
           internshipId={selectedInternshipId}
@@ -124,13 +126,14 @@ function App() {
         />
       )}
 
+      {/* SUMMIT DETAIL */}
       {page === "summitDetail" && user && (
         <SummitDetail
           summitId={selectedSummitId}
           onBack={() => setPage("summits")}
         />
       )}
-    </>
+    </div>
   );
 }
 
