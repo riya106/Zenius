@@ -15,11 +15,11 @@ export default function Dashboard({
     dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black 
     relative overflow-hidden text-gray-800 dark:text-gray-200">
 
-      {/* Background Blurs */}
+    
       <div className="absolute top-10 left-10 w-72 h-72 bg-teal-300 dark:bg-teal-700 rounded-full blur-3xl opacity-20"></div>
       <div className="absolute bottom-10 right-10 w-72 h-72 bg-indigo-300 dark:bg-indigo-700 rounded-full blur-3xl opacity-20"></div>
 
-      {/* HEADER */}
+     
       <header className="sticky top-0 z-50 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border-b border-white/40 dark:border-gray-700 shadow-sm">
         <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
           
@@ -43,7 +43,7 @@ export default function Dashboard({
               </button>
             </nav>
 
-            {/* 🌙 Dark Mode Toggle */}
+            
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="px-4 py-2 rounded-xl bg-gray-200 dark:bg-gray-700 dark:text-white transition"
@@ -56,7 +56,7 @@ export default function Dashboard({
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20">
 
-        {/* HERO SECTION */}
+       
         <section className="text-center mt-16 mb-16">
           <p className="text-xl text-gray-600 dark:text-gray-400 mt-6 max-w-2xl mx-auto">
             Discover internships, hackathons, DSA resources & global tech summits
@@ -71,7 +71,7 @@ export default function Dashboard({
           </button>
         </section>
 
-        {/* STATS */}
+       
         <div className="grid grid-cols-3 gap-6 text-center mb-16">
           {[
             { value: "120+", label: "Internships", color: "text-teal-500" },
@@ -92,10 +92,9 @@ export default function Dashboard({
           ))}
         </div>
 
-        {/* MAIN CARDS */}
+        
         <div className="grid md:grid-cols-2 gap-10 mb-16">
 
-          {/* Hackathons */}
           <Card
             title="Hackathons"
             desc="Participate in top national & international hackathons and win exciting prizes."
@@ -104,7 +103,7 @@ export default function Dashboard({
             onClick={onOpenHackathon}
           />
 
-          {/* Internships */}
+       
           <Card
             title="Internships"
             desc="Explore curated internship opportunities tailored for tech students."
@@ -113,7 +112,7 @@ export default function Dashboard({
             onClick={onOpenInternship}
           />
 
-          {/* DSA */}
+        
           <Card
             title="DSA Practice"
             desc="Strengthen your problem-solving skills with structured DSA content."
@@ -122,7 +121,7 @@ export default function Dashboard({
             onClick={onOpenDSA}
           />
 
-          {/* Summits */}
+         
           <Card
             title="Tech Summits"
             desc="Stay updated with global tech conferences & developer events."
@@ -133,7 +132,7 @@ export default function Dashboard({
 
         </div>
 
-        {/* LOGOUT */}
+        
         <div className="flex justify-center pb-16">
           <button
             onClick={onLogout}
@@ -148,7 +147,7 @@ export default function Dashboard({
   );
 }
 
-/* Reusable Card */
+
 function Card({ title, desc, btnText, btnColor, onClick }) {
   return (
     <div className="bg-white/70 dark:bg-gray-800 backdrop-blur-lg border border-white/40 dark:border-gray-700 rounded-3xl p-10 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition duration-300">

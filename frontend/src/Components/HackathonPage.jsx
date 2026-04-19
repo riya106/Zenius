@@ -1,91 +1,146 @@
-import React from "react";
+// frontend/src/Components/HackathonPage.jsx
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import API_BASE_URL from "../config/api";
 
-function Front({ onGetStarted, onLoginClick, onSignupClick }) {
+const HackathonPage = ({ onBack }) => {
+  const [hackathons, setHackathons] = useState([]);
+  const [filteredHackathons, setFilteredHackathons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [mode, setMode] = useState("All");
+
+  useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/api/hackathons`)
+      .then((res) => {
+        setHackathons(res.data);
+        setFilteredHackathons(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    let filtered = hackathons.filter((hack) =>
+      hack.name?.toLowerCase().includes(search.toLowerCase()) ||
+      hack.organizer?.toLowerCase().includes(search.toLowerCase())
+    );
+
+    if (mode !== "All") {
+      filtered = filtered.filter((hack) => hack.mode === mode);
+    }
+
+    setFilteredHackathons(filtered);
+  }, [search, mode, hackathons]);
+
+  const handleApply = (link) => {
+    if (!link) {
+      alert("Registration link not available");
+      return;
+    }
+    window.open(link, "_blank");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center 
-    transition-colors duration-500
-    bg-gradient-to-b from-[#f0fdfa] to-[#e0f2fe] 
-    dark:bg-gradient-to-b dark:from-gray-900 dark:to-black
-    text-gray-800 dark:text-gray-200 
-    overflow-hidden relative">
+    <div className="min-h-screen w-full bg-gradient-to-br from-teal-50 via-sky-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-black text-gray-800 dark:text-gray-200">
 
-      {/* Glow Background */}
-      <div className="absolute w-[600px] h-[600px] 
-      bg-teal-300 dark:bg-indigo-700 
-      opacity-30 blur-3xl rounded-full 
-      top-1/3 left-1/4 animate-pulse"></div>
-
-      {/* 🔹 Top Navigation */}
-      <div className="absolute top-6 right-8 flex gap-4 z-20">
-        <button
-          onClick={onLoginClick}
-          className="px-6 py-2 rounded-full 
-          border border-teal-400 dark:border-indigo-400
-          text-teal-600 dark:text-indigo-300
-          font-semibold 
-          hover:bg-teal-500 hover:text-white 
-          dark:hover:bg-indigo-600 dark:hover:text-white
-          transition"
-        >
-          Login
-        </button>
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 p-8 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md shadow-md">
+        <div>
+          <h1 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-500 to-teal-500 bg-clip-text text-transparent">
+            Hackathon Hub
+          </h1>
+        </div>
 
         <button
-          onClick={onSignupClick}
-          className="px-6 py-2 rounded-full 
-          bg-gradient-to-r from-teal-500 to-sky-500
-          dark:from-indigo-500 dark:to-purple-600
-          text-white font-semibold 
-          hover:opacity-90 transition"
+          onClick={onBack}
+          className="bg-indigo-500 px-6 py-3 rounded-2xl text-white font-semibold hover:bg-indigo-600 transition shadow-md"
         >
-          Sign Up
+          ← Go Back
         </button>
       </div>
 
-      {/* Zenius Title */}
-      <h1 className="text-[16vw] leading-none font-extrabold 
-      text-transparent bg-clip-text 
-      bg-gradient-to-r from-teal-500 via-sky-500 to-blue-500
-      dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400
-      animate-fadeIn">
-        Zenius
-      </h1>
+      {/* SEARCH & FILTER */}
+      <div className="max-w-7xl mx-auto px-6 mt-8 flex flex-col md:flex-row gap-6 items-center justify-between">
+        <input
+          type="text"
+          placeholder="Search hackathons..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full md:w-1/2 px-6 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm"
+        />
 
-      {/* Tagline */}
-      <p className="mt-8 text-[3vw] md:text-[1.8vw] 
-      text-gray-600 dark:text-gray-400 
-      font-semibold tracking-wide animate-fadeInSlow">
-        Your Zenius to be Genius.
-      </p>
+        <select
+          value={mode}
+          onChange={(e) => setMode(e.target.value)}
+          className="px-5 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-teal-400 outline-none shadow-sm"
+        >
+          <option value="All">All Modes</option>
+          <option value="Online">🌐 Online</option>
+          <option value="Offline">📍 Offline</option>
+          <option value="Hybrid">🔄 Hybrid</option>
+        </select>
+      </div>
 
-      {/* Get Started Button */}
-      <button
-        onClick={onGetStarted}
-        className="mt-10 px-10 py-4 text-lg font-semibold 
-        text-white rounded-full 
-        bg-gradient-to-r from-teal-500 to-sky-500
-        dark:from-indigo-500 dark:to-purple-600
-        hover:scale-105 hover:shadow-lg 
-        transition-all duration-300 animate-fadeInSlow"
-      >
-        Get Started
-      </button>
+      {/* CONTENT */}
+      {loading ? (
+        <div className="flex items-center justify-center mt-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto"></div>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">Loading hackathons...</p>
+          </div>
+        </div>
+      ) : (
+        <div className="px-6 py-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+          {filteredHackathons.length === 0 ? (
+            <p className="col-span-full text-center text-gray-500 dark:text-gray-400 text-lg">
+              No hackathons found.
+            </p>
+          ) : (
+            filteredHackathons.map((hack) => (
+              <div
+                key={hack._id || hack.id}
+                className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg border border-white/40 dark:border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:scale-[1.03] transition duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                    {hack.name}
+                  </h2>
 
-      {/* Animations */}
-      <style>{`
-        @keyframes fadeIn {
-          0% { opacity: 0; transform: translateY(20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 1.2s ease-out forwards;
-        }
-        .animate-fadeInSlow {
-          animation: fadeIn 2s ease-out forwards;
-        }
-      `}</style>
+                  <p className="text-md font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
+                    🏢 {hack.organizer}
+                  </p>
+
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                    📅 {hack.date}
+                  </p>
+
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    🎯 Mode: {hack.mode}
+                  </p>
+
+                  <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+                    {hack.description}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => handleApply(hack.applyLink)}
+                  className="mt-8 bg-gradient-to-r from-indigo-500 to-teal-500 text-white font-bold px-6 py-3 rounded-2xl hover:scale-105 transition shadow-md"
+                >
+                  Register Now →
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
-}
+};
 
-export default Front;
+export default HackathonPage;

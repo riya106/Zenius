@@ -1,3 +1,4 @@
+// frontend/src/Components/Login.jsx
 import React, { useState } from "react";
 import { auth, db, provider } from "../firebase";
 import {
@@ -8,8 +9,8 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
-const Login = ({ onLoginSuccess }) => {
-  const [isLoginMode, setIsLoginMode] = useState(true);
+const Login = ({ initialMode = "login", onLoginSuccess }) => {
+  const [isLoginMode, setIsLoginMode] = useState(initialMode === "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,12 +22,12 @@ const Login = ({ onLoginSuccess }) => {
 
   const handleForgotPassword = async () => {
     if (!email) {
-      return alert("Enter your email to reset password.");
+      return alert("📧 Enter your email to reset password.");
     }
 
     try {
       await sendPasswordResetEmail(auth, email);
-      alert("📧 Reset email sent! Check your inbox.");
+      alert("✅ Reset email sent! Check your inbox.");
     } catch (error) {
       alert(formatError(error.message));
     }
@@ -108,25 +109,25 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-teal-50 via-sky-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-teal-50 via-sky-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-black relative overflow-hidden">
 
       {/* Background Glow */}
-      <div className="absolute w-[500px] h-[500px] bg-teal-300 opacity-20 blur-3xl rounded-full top-1/4 left-1/4"></div>
-      <div className="absolute w-[600px] h-[600px] bg-indigo-300 opacity-20 blur-3xl rounded-full bottom-1/4 right-1/4"></div>
+      <div className="absolute w-[500px] h-[500px] bg-teal-300 dark:bg-teal-600 opacity-20 blur-3xl rounded-full top-1/4 left-1/4"></div>
+      <div className="absolute w-[600px] h-[600px] bg-indigo-300 dark:bg-indigo-600 opacity-20 blur-3xl rounded-full bottom-1/4 right-1/4"></div>
 
       {/* Auth Card */}
-      <div className="relative w-[430px] bg-white/70 backdrop-blur-xl border border-white/40 p-8 rounded-3xl shadow-2xl">
+      <div className="relative w-[430px] bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl border border-white/40 dark:border-gray-700 p-8 rounded-3xl shadow-2xl">
 
         <h2 className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-indigo-500 mb-6">
           {isLoginMode ? "Welcome Back" : "Create Account"}
         </h2>
 
         {/* Toggle */}
-        <div className="relative flex h-12 mb-6 bg-white rounded-full shadow-inner overflow-hidden">
+        <div className="relative flex h-12 mb-6 bg-white dark:bg-gray-700 rounded-full shadow-inner overflow-hidden">
           <button
             onClick={() => setIsLoginMode(true)}
             className={`w-1/2 text-sm font-semibold transition-all z-10 ${
-              isLoginMode ? "text-white" : "text-gray-600"
+              isLoginMode ? "text-white" : "text-gray-600 dark:text-gray-400"
             }`}
           >
             Login
@@ -135,7 +136,7 @@ const Login = ({ onLoginSuccess }) => {
           <button
             onClick={() => setIsLoginMode(false)}
             className={`w-1/2 text-sm font-semibold transition-all z-10 ${
-              !isLoginMode ? "text-white" : "text-gray-600"
+              !isLoginMode ? "text-white" : "text-gray-600 dark:text-gray-400"
             }`}
           >
             Sign Up
@@ -158,7 +159,7 @@ const Login = ({ onLoginSuccess }) => {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 bg-white rounded-2xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none"
+              className="w-full p-3 bg-white dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-teal-400 outline-none dark:text-white"
             />
           )}
 
@@ -168,7 +169,7 @@ const Login = ({ onLoginSuccess }) => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 bg-white rounded-2xl border border-gray-300 focus:ring-2 focus:ring-teal-400 outline-none"
+            className="w-full p-3 bg-white dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-teal-400 outline-none dark:text-white"
           />
 
           <input
@@ -177,13 +178,13 @@ const Login = ({ onLoginSuccess }) => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 bg-white rounded-2xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
+            className="w-full p-3 bg-white dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-400 outline-none dark:text-white"
           />
 
           {isLoginMode && (
             <p
               onClick={handleForgotPassword}
-              className="text-right text-indigo-600 hover:underline cursor-pointer text-sm"
+              className="text-right text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer text-sm"
             >
               Forgot Password?
             </p>
@@ -196,7 +197,7 @@ const Login = ({ onLoginSuccess }) => {
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full p-3 bg-white rounded-2xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
+              className="w-full p-3 bg-white dark:bg-gray-800 rounded-2xl border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-400 outline-none dark:text-white"
             />
           )}
 
@@ -218,7 +219,7 @@ const Login = ({ onLoginSuccess }) => {
             type="button"
             disabled={loading}
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center gap-3 p-3 bg-white border border-gray-300 rounded-2xl text-gray-700 font-medium hover:shadow-md transition"
+            className="w-full flex items-center justify-center gap-3 p-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-2xl text-gray-700 dark:text-gray-300 font-medium hover:shadow-md transition"
           >
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -228,13 +229,13 @@ const Login = ({ onLoginSuccess }) => {
             Continue with Google
           </button>
 
-          <p className="text-center text-gray-600 text-sm">
+          <p className="text-center text-gray-600 dark:text-gray-400 text-sm">
             {isLoginMode
-              ? "Don’t have an account?"
+              ? "Don't have an account?"
               : "Already have an account?"}{" "}
             <span
               onClick={() => setIsLoginMode(!isLoginMode)}
-              className="text-indigo-600 font-semibold cursor-pointer hover:underline"
+              className="text-indigo-600 dark:text-indigo-400 font-semibold cursor-pointer hover:underline"
             >
               {isLoginMode ? "Sign Up" : "Login"}
             </span>
